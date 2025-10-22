@@ -1,6 +1,7 @@
 // Estado de la aplicación
 let currentPlaying = null;
 
+// Nombres de sonidos
 const soundNames = {
     'tormenta': 'Tormenta',
     'trueno': 'Trueno',
@@ -10,43 +11,27 @@ const soundNames = {
     'timbre': 'Timbre de Puerta'
 };
 
+// Inicializar eventos
 document.addEventListener('DOMContentLoaded', function() {
+    // Configurar botones de reproducir
     const playButtons = document.querySelectorAll('.btn-play');
-    playButtons.forEach(button => button.addEventListener('click', handlePlay));
+    playButtons.forEach(button => {
+        button.addEventListener('click', handlePlay);
+    });
 
+    // Configurar botón de detener
     const stopButton = document.getElementById('btn-stop');
     if (stopButton) stopButton.addEventListener('click', stopSound);
 
     // Habilitar botones si los audios ya tienen src (preinstalados)
     enablePreinstalledAudios();
-
-    // Añadir listener 'ended' para cada audio: si termina, restablecer UI
-    const audios = document.querySelectorAll('audio[id^="audio-"]');
-    audios.forEach(audio => {
-        const soundId = audio.id.replace('audio-', '');
-        audio.addEventListener('ended', () => {
-            // Si se trata de la bofetada (o cualquier audio no-loop), al terminar
-            // limpiamos el estado tal y como hace stopSound.
-            if (currentPlaying === soundId) {
-                // actualizamos UI sin volver a pausar (ya terminó)
-                const button = document.querySelector(`.btn-play[data-sound="${soundId}"]`);
-                if (button) {
-                    button.classList.remove('playing');
-                    button.textContent = '▶ Reproducir';
-                }
-                currentPlaying = null;
-                const stopBtn = document.getElementById('btn-stop');
-                if (stopBtn) stopBtn.disabled = true;
-                const status = document.getElementById('status');
-                if (status) status.classList.add('hidden');
-            }
-        });
-    });
 });
 
+// Habilita botones si el audio ya tiene src (preinstalado)
 function enablePreinstalledAudios() {
     const audios = document.querySelectorAll('audio[id^="audio-"]');
     audios.forEach(audio => {
+        // Comprobamos que exista un src válido (ignoramos about:blank)
         if (audio.getAttribute('src')) {
             const soundId = audio.id.replace('audio-', '');
             const playButton = document.querySelector(`.btn-play[data-sound="${soundId}"]`);
@@ -57,6 +42,7 @@ function enablePreinstalledAudios() {
     });
 }
 
+// Manejar reproducción: si se pulsa el mismo sonido que suena, lo detiene; si es otro, lo cambia.
 function handlePlay(event) {
     const button = event.currentTarget;
     const soundId = button.dataset.sound;
@@ -75,17 +61,19 @@ function handlePlay(event) {
     // Reproducir el audio
     const audio = document.getElementById(`audio-${soundId}`);
     if (!audio) return;
-
-    // Aseguramos que la bofetada no esté en loop (por si quedó marcado)
-    if (soundId === 'bofetada') audio.loop = false;
-
     audio.play()
         .then(() => {
             currentPlaying = soundId;
+
+            // Actualizar UI
             button.classList.add('playing');
             button.textContent = '▶ Reproduciendo';
+
+            // Habilitar botón de detener
             const stopButton = document.getElementById('btn-stop');
             if (stopButton) stopButton.disabled = false;
+
+            // Mostrar estado
             const status = document.getElementById('status');
             const statusText = document.getElementById('status-text');
             if (statusText) statusText.textContent = soundNames[soundId] || soundId;
@@ -97,6 +85,7 @@ function handlePlay(event) {
         });
 }
 
+// Detener sonido
 function stopSound() {
     if (currentPlaying) {
         const audio = document.getElementById(`audio-${currentPlaying}`);
@@ -105,6 +94,7 @@ function stopSound() {
             audio.currentTime = 0;
         }
 
+        // Actualizar UI
         const button = document.querySelector(`.btn-play[data-sound="${currentPlaying}"]`);
         if (button) {
             button.classList.remove('playing');
@@ -114,9 +104,11 @@ function stopSound() {
         currentPlaying = null;
     }
 
+    // Deshabilitar botón de detener
     const stopButton = document.getElementById('btn-stop');
     if (stopButton) stopButton.disabled = true;
 
+    // Ocultar estado
     const status = document.getElementById('status');
     if (status) status.classList.add('hidden');
 }
