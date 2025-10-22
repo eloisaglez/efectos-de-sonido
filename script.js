@@ -13,12 +13,6 @@ const soundNames = {
 
 // Inicializar eventos
 document.addEventListener('DOMContentLoaded', function() {
-    // Configurar inputs de archivo
-    const fileInputs = document.querySelectorAll('.file-input');
-    fileInputs.forEach(input => {
-        input.addEventListener('change', handleFileUpload);
-    });
-
     // Configurar botones de reproducir
     const playButtons = document.querySelectorAll('.btn-play');
     playButtons.forEach(button => {
@@ -28,57 +22,57 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar botón de detener
     const stopButton = document.getElementById('btn-stop');
     if (stopButton) stopButton.addEventListener('click', stopSound);
+
+    // Habilitar botones si los audios ya tienen src (preinstalados)
+    enablePreinstalledAudios();
 });
 
-// Manejar carga de archivo
-function handleFileUpload(event) {
-    const input = event.target;
-    const soundId = input.dataset.sound;
-    const file = input.files[0];
-
-    if (file) {
-        const url = URL.createObjectURL(file);
-        
-        // Configurar el audio
-        const audio = document.getElementById(`audio-${soundId}`);
-        audio.src = url;
-        audio.classList.remove('hidden');
-        
-        // Mostrar el check
-        const checkIcon = document.getElementById(`check-${soundId}`);
-        if (checkIcon) checkIcon.classList.remove('hidden');
-        
-        // Habilitar el botón de reproducir
-        const playButton = document.querySelector(`.btn-play[data-sound="${soundId}"]`);
-        if (playButton) playButton.disabled = false;
-    }
+// Habilita botones si el audio ya tiene src (preinstalado)
+function enablePreinstalledAudios() {
+    const audios = document.querySelectorAll('audio[id^="audio-"]');
+    audios.forEach(audio => {
+        // Comprobamos que exista un src válido (ignoramos about:blank)
+        if (audio.getAttribute('src')) {
+            const soundId = audio.id.replace('audio-', '');
+            const playButton = document.querySelector(`.btn-play[data-sound="${soundId}"]`);
+            const checkIcon = document.getElementById(`check-${soundId}`);
+            if (checkIcon) checkIcon.classList.remove('hidden');
+            if (playButton) playButton.disabled = false;
+        }
+    });
 }
 
-// Manejar reproducción
+// Manejar reproducción: si se pulsa el mismo sonido que suena, lo detiene; si es otro, lo cambia.
 function handlePlay(event) {
     const button = event.currentTarget;
     const soundId = button.dataset.sound;
-    
-    // Si hay otro sonido reproduciéndose, detenerlo
+
+    // Si el mismo sonido está reproduciéndose -> detenerlo
+    if (currentPlaying === soundId) {
+        stopSound();
+        return;
+    }
+
+    // Si hay otro sonido reproduciéndose, detenerlo primero
     if (currentPlaying && currentPlaying !== soundId) {
         stopSound();
     }
-    
+
     // Reproducir el audio
     const audio = document.getElementById(`audio-${soundId}`);
     if (!audio) return;
     audio.play()
         .then(() => {
             currentPlaying = soundId;
-            
+
             // Actualizar UI
             button.classList.add('playing');
             button.textContent = '▶ Reproduciendo';
-            
+
             // Habilitar botón de detener
             const stopButton = document.getElementById('btn-stop');
             if (stopButton) stopButton.disabled = false;
-            
+
             // Mostrar estado
             const status = document.getElementById('status');
             const statusText = document.getElementById('status-text');
@@ -99,21 +93,21 @@ function stopSound() {
             audio.pause();
             audio.currentTime = 0;
         }
-        
+
         // Actualizar UI
         const button = document.querySelector(`.btn-play[data-sound="${currentPlaying}"]`);
         if (button) {
             button.classList.remove('playing');
             button.textContent = '▶ Reproducir';
         }
-        
+
         currentPlaying = null;
     }
-    
+
     // Deshabilitar botón de detener
     const stopButton = document.getElementById('btn-stop');
     if (stopButton) stopButton.disabled = true;
-    
+
     // Ocultar estado
     const status = document.getElementById('status');
     if (status) status.classList.add('hidden');
