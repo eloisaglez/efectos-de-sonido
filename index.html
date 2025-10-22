@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efectos de Sonido</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>
+                    <svg class="icon-large" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                    </svg>
+                    Efectos de Sonido
+                </h1>
+                <p class="subtitle">Carga tus archivos de audio y reprodúcelos en bucle</p>
+            </div>
+
+            <div class="sounds-grid">
+                <!-- Tormenta -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">⛈️</span>
+                            <span class="sound-name">Tormenta</span>
+                            <svg class="check-icon hidden" id="check-tormenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <label class="btn-upload">
+                                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Cargar
+                                <input type="file" accept="audio/*" class="file-input" data-sound="tormenta">
+                            </label>
+                            <button class="btn-play" data-sound="tormenta" disabled>▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-tormenta" loop class="audio-player hidden"></audio>
+                </div>
+
+                <!-- Trueno -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">⚡</span>
+                            <span class="sound-name">Trueno</span>
+                            <svg class="check-icon hidden" id="check-trueno" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <label class="btn-upload">
+                                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Cargar
+                                <input type="file" accept="audio/*" class="file-input" data-sound="trueno">
+                            </label>
+                            <button class="btn-play" data-sound="trueno" disabled>▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-trueno" loop class="audio-player hidden"></audio>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">📱</span>
+                            <span class="sound-name">Timbre de Teléfono</span>
+                            <svg class="check-icon hidden" id="check-telefono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <label class="btn-upload">
+                                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Cargar
+                                <input type="file" accept="audio/*" class="file-input" data-sound="telefono">
+                            </label>
+                            <button class="btn-play" data-sound="telefono" disabled>▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-telefono" loop class="audio-player hidden"></audio>
+                </div>
+
+                <!-- Bofetada -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">👋</span>
+                            <span class="sound-name">Bofetada</span>
+                            <svg class="check-icon hidden" id="check-bofetada" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <label class="btn-upload">
+                                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Cargar
+                                <input type="file" accept="audio/*" class="file-input" data-sound="bofetada">
+                            </label>
+                            <button class="btn-play" data-sound="bofetada" disabled>▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-bofetada" loop class="audio-player hidden"></audio>
+                </div>
+
+                <!-- Agonizando -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">😰</span>
+                            <span class="sound-name">Persona Agonizando</span>
+                            <svg class="check-icon hidden" id="check-agonizando" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <label class="btn-upload">
+                                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Cargar
+                                <input type="file" accept="audio/*" class="file-input" data-sound="agonizando">
+                            </label>
+                            <button class="btn-play" data-sound="agonizando" disabled>▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-agonizando" loop class="audio-player hidden"></audio>
+                </div>
+
+                <!-- Timbre -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">🔔</span>
+                            <span class="sound-name">Timbre de Puerta</span>
+                            <svg class="check-icon hidden" id="check-timbre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <label class="btn-upload">
+                                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Cargar
+                                <input type="file" accept="audio/*" class="file-input" data-sound="timbre">
+                            </label>
+                            <button class="btn-play" data-sound="timbre" disabled>▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-timbre" loop class="audio-player hidden"></audio>
+                </div>
+            </div>
+
+            <button class="btn-stop" id="btn-stop" disabled>
+                <svg class="icon-medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                DETENER SONIDO
+            </button>
+
+            <div class="status hidden" id="status">
+                🔊 Reproduciendo en bucle: <span class="status-text" id="status-text"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
