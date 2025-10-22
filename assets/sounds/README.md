@@ -1,4 +1,4 @@
-Carpeta de sonidos
+Carpeta de sonidos.
 Los sonidos se ha descargado de Pixaby
 Aquí es donde puedes subir tus archivos de audio (.mp3, .wav, etc.).
 
