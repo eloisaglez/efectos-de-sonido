@@ -10,6 +10,16 @@ const soundNames = {
     'timbre': 'Timbre de Puerta'
 };
 
+// Configurar qué sonidos deben hacer loop y cuáles no
+const loopSettings = {
+    'tormenta': true,
+    'trueno': true,
+    'telefono': true,
+    'bofetada': false,  // La bofetada NO hace loop
+    'agonizando': true,
+    'timbre': true
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     const playButtons = document.querySelectorAll('.btn-play');
     playButtons.forEach(button => button.addEventListener('click', handlePlay));
