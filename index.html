@@ -1,114 +1,48 @@
-// Estado de la aplicación
-let currentPlaying = null;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efectos de sonido - Cianuro con o sin leche</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1> Efectos de Sonido </h1>
+                <p class="subtitle">Reproduce los sonidos alojados en la carpeta assets/sounds/</p>
+            </div>
 
-// Nombres de sonidos
-const soundNames = {
-    'tormenta': 'Tormenta',
-    'trueno': 'Trueno',
-    'telefono': 'Timbre de Teléfono',
-    'bofetada': 'Bofetada',
-    'agonizando': 'Persona Agonizando',
-    'timbre': 'Timbre de Puerta'
-};
+            <div class="sounds-grid">
+                <!-- ... otros elementos ... -->
 
-// Inicializar eventos
-document.addEventListener('DOMContentLoaded', function() {
-    // Configurar botones de reproducir
-    const playButtons = document.querySelectorAll('.btn-play');
-    playButtons.forEach(button => {
-        button.addEventListener('click', handlePlay);
-    });
+                <!-- Bofetada (sin loop) -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">👋</span>
+                            <span class="sound-name">Bofetada</span>
+                        </div>
+                        <div class="sound-controls">
+                            <button class="btn-play" data-sound="bofetada">▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <!-- Aquí NO tiene loop: sonará una vez -->
+                    <audio id="audio-bofetada" class="audio-player" src="assets/sounds/hardslap-117046.mp3"></audio>
+                </div>
 
-    // Configurar botón de detener
-    const stopButton = document.getElementById('btn-stop');
-    if (stopButton) stopButton.addEventListener('click', stopSound);
+                <!-- ... otros elementos ... -->
+            </div>
 
-    // Habilitar botones si los audios ya tienen src (preinstalados)
-    enablePreinstalledAudios();
-});
+            <button class="btn-stop" id="btn-stop" disabled>DETENER SONIDO</button>
 
-// Habilita botones si el audio ya tiene src (preinstalado)
-function enablePreinstalledAudios() {
-    const audios = document.querySelectorAll('audio[id^="audio-"]');
-    audios.forEach(audio => {
-        // Comprobamos que exista un src válido (ignoramos about:blank)
-        if (audio.getAttribute('src')) {
-            const soundId = audio.id.replace('audio-', '');
-            const playButton = document.querySelector(`.btn-play[data-sound="${soundId}"]`);
-            const checkIcon = document.getElementById(`check-${soundId}`);
-            if (checkIcon) checkIcon.classList.remove('hidden');
-            if (playButton) playButton.disabled = false;
-        }
-    });
-}
+            <div class="status hidden" id="status">
+                🔊 Reproduciendo en bucle: <span class="status-text" id="status-text"></span>
+            </div>
+        </div>
+    </div>
 
-// Manejar reproducción: si se pulsa el mismo sonido que suena, lo detiene; si es otro, lo cambia.
-function handlePlay(event) {
-    const button = event.currentTarget;
-    const soundId = button.dataset.sound;
-
-    // Si el mismo sonido está reproduciéndose -> detenerlo
-    if (currentPlaying === soundId) {
-        stopSound();
-        return;
-    }
-
-    // Si hay otro sonido reproduciéndose, detenerlo primero
-    if (currentPlaying && currentPlaying !== soundId) {
-        stopSound();
-    }
-
-    // Reproducir el audio
-    const audio = document.getElementById(`audio-${soundId}`);
-    if (!audio) return;
-    audio.play()
-        .then(() => {
-            currentPlaying = soundId;
-
-            // Actualizar UI
-            button.classList.add('playing');
-            button.textContent = '▶ Reproduciendo';
-
-            // Habilitar botón de detener
-            const stopButton = document.getElementById('btn-stop');
-            if (stopButton) stopButton.disabled = false;
-
-            // Mostrar estado
-            const status = document.getElementById('status');
-            const statusText = document.getElementById('status-text');
-            if (statusText) statusText.textContent = soundNames[soundId] || soundId;
-            if (status) status.classList.remove('hidden');
-        })
-        .catch(error => {
-            console.error('Error al reproducir audio:', error);
-            alert('Error al reproducir el audio. Verifica que el archivo sea válido y que el navegador permita reproducción.');
-        });
-}
-
-// Detener sonido
-function stopSound() {
-    if (currentPlaying) {
-        const audio = document.getElementById(`audio-${currentPlaying}`);
-        if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
-        }
-
-        // Actualizar UI
-        const button = document.querySelector(`.btn-play[data-sound="${currentPlaying}"]`);
-        if (button) {
-            button.classList.remove('playing');
-            button.textContent = '▶ Reproducir';
-        }
-
-        currentPlaying = null;
-    }
-
-    // Deshabilitar botón de detener
-    const stopButton = document.getElementById('btn-stop');
-    if (stopButton) stopButton.disabled = true;
-
-    // Ocultar estado
-    const status = document.getElementById('status');
-    if (status) status.classList.add('hidden');
-}
+    <script src="script.js"></script>
+</body>
+</html>
