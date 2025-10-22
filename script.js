@@ -30,15 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Habilitar botones si los audios ya tienen src (preinstalados)
     enablePreinstalledAudios();
 
-    // Añadir listener 'ended' para cada audio: si termina, restablecer UI
+    // Añadir listener 'ended' para cada audio
     const audios = document.querySelectorAll('audio[id^="audio-"]');
     audios.forEach(audio => {
         const soundId = audio.id.replace('audio-', '');
         audio.addEventListener('ended', () => {
-            // Si se trata de la bofetada (o cualquier audio no-loop), al terminar
-            // limpiamos el estado tal y como hace stopSound.
-            if (currentPlaying === soundId) {
-                // actualizamos UI sin volver a pausar (ya terminó)
+            // Solo limpiar el estado si el audio NO está configurado para loop
+            if (currentPlaying === soundId && !loopSettings[soundId]) {
                 const button = document.querySelector(`.btn-play[data-sound="${soundId}"]`);
                 if (button) {
                     button.classList.remove('playing');
@@ -86,8 +84,8 @@ function handlePlay(event) {
     const audio = document.getElementById(`audio-${soundId}`);
     if (!audio) return;
 
-    // Aseguramos que la bofetada no esté en loop (por si quedó marcado)
-    if (soundId === 'bofetada') audio.loop = false;
+    // Configurar loop según la configuración
+    audio.loop = loopSettings[soundId] || false;
 
     audio.play()
         .then(() => {
