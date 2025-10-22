@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Configurar botón de detener
     const stopButton = document.getElementById('btn-stop');
-    stopButton.addEventListener('click', stopSound);
+    if (stopButton) stopButton.addEventListener('click', stopSound);
 });
 
 // Manejar carga de archivo
@@ -46,11 +46,11 @@ function handleFileUpload(event) {
         
         // Mostrar el check
         const checkIcon = document.getElementById(`check-${soundId}`);
-        checkIcon.classList.remove('hidden');
+        if (checkIcon) checkIcon.classList.remove('hidden');
         
         // Habilitar el botón de reproducir
         const playButton = document.querySelector(`.btn-play[data-sound="${soundId}"]`);
-        playButton.disabled = false;
+        if (playButton) playButton.disabled = false;
     }
 }
 
@@ -66,6 +66,7 @@ function handlePlay(event) {
     
     // Reproducir el audio
     const audio = document.getElementById(`audio-${soundId}`);
+    if (!audio) return;
     audio.play()
         .then(() => {
             currentPlaying = soundId;
@@ -76,17 +77,17 @@ function handlePlay(event) {
             
             // Habilitar botón de detener
             const stopButton = document.getElementById('btn-stop');
-            stopButton.disabled = false;
+            if (stopButton) stopButton.disabled = false;
             
             // Mostrar estado
             const status = document.getElementById('status');
             const statusText = document.getElementById('status-text');
-            statusText.textContent = soundNames[soundId];
-            status.classList.remove('hidden');
+            if (statusText) statusText.textContent = soundNames[soundId] || soundId;
+            if (status) status.classList.remove('hidden');
         })
         .catch(error => {
             console.error('Error al reproducir audio:', error);
-            alert('Error al reproducir el audio. Verifica que el archivo sea válido.');
+            alert('Error al reproducir el audio. Verifica que el archivo sea válido y que el navegador permita reproducción.');
         });
 }
 
@@ -94,22 +95,26 @@ function handlePlay(event) {
 function stopSound() {
     if (currentPlaying) {
         const audio = document.getElementById(`audio-${currentPlaying}`);
-        audio.pause();
-        audio.currentTime = 0;
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
         
         // Actualizar UI
         const button = document.querySelector(`.btn-play[data-sound="${currentPlaying}"]`);
-        button.classList.remove('playing');
-        button.textContent = '▶ Reproducir';
+        if (button) {
+            button.classList.remove('playing');
+            button.textContent = '▶ Reproducir';
+        }
         
         currentPlaying = null;
     }
     
     // Deshabilitar botón de detener
     const stopButton = document.getElementById('btn-stop');
-    stopButton.disabled = true;
+    if (stopButton) stopButton.disabled = true;
     
     // Ocultar estado
     const status = document.getElementById('status');
-    status.classList.add('hidden');
+    if (status) status.classList.add('hidden');
 }
