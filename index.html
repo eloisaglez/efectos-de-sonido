@@ -10,32 +10,130 @@
     <div class="container">
         <div class="card">
             <div class="header">
-                <h1> Efectos de Sonido </h1>
+                <h1>
+                    <svg class="icon-large" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                    </svg>
+                    Efectos de Sonido
+                </h1>
                 <p class="subtitle">Reproduce los sonidos alojados en la carpeta assets/sounds/</p>
             </div>
 
             <div class="sounds-grid">
-                <!-- ... otros elementos ... -->
+                <!-- Tormenta -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">⛈️</span>
+                            <span class="sound-name">Tormenta</span>
+                            <svg class="check-icon" id="check-tormenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <button class="btn-play" data-sound="tormenta">▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-tormenta" loop class="audio-player" src="assets/sounds/heavy-wind-storm-326096.mp3"></audio>
+                </div>
 
-                <!-- Bofetada (sin loop) -->
+                <!-- Trueno -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">⚡</span>
+                            <span class="sound-name">Trueno</span>
+                            <svg class="check-icon" id="check-trueno" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <button class="btn-play" data-sound="trueno">▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-trueno" loop class="audio-player" src="assets/sounds/thunder-sound-375727.mp3"></audio>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">📱</span>
+                            <span class="sound-name">Timbre de Teléfono</span>
+                            <svg class="check-icon" id="check-telefono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <button class="btn-play" data-sound="telefono">▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-telefono" loop class="audio-player" src="assets/sounds/vintage-phone-ringing-121778.mp3"></audio>
+                </div>
+
+                <!-- Bofetada -->
                 <div class="sound-item">
                     <div class="sound-header">
                         <div class="sound-info">
                             <span class="icon">👋</span>
                             <span class="sound-name">Bofetada</span>
+                            <svg class="check-icon" id="check-bofetada" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
                         </div>
                         <div class="sound-controls">
                             <button class="btn-play" data-sound="bofetada">▶ Reproducir</button>
                         </div>
                     </div>
-                    <!-- Aquí NO tiene loop: sonará una vez -->
-                    <audio id="audio-bofetada" class="audio-player" src="assets/sounds/hardslap-117046.mp3"></audio>
+                    <audio id="audio-bofetada" loop class="audio-player" src="assets/sounds/hardslap-117046.mp3"></audio>
                 </div>
 
-                <!-- ... otros elementos ... -->
+                <!-- Agonizando -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">😰</span>
+                            <span class="sound-name">Persona Agonizando</span>
+                            <svg class="check-icon" id="check-agonizando" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <button class="btn-play" data-sound="agonizando">▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-agonizando" loop class="audio-player" src="assets/sounds/cry-of-pain-357978.mp3"></audio>
+                </div>
+
+                <!-- Timbre -->
+                <div class="sound-item">
+                    <div class="sound-header">
+                        <div class="sound-info">
+                            <span class="icon">🔔</span>
+                            <span class="sound-name">Timbre de Puerta</span>
+                            <svg class="check-icon" id="check-timbre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="sound-controls">
+                            <button class="btn-play" data-sound="timbre">▶ Reproducir</button>
+                        </div>
+                    </div>
+                    <audio id="audio-timbre" loop class="audio-player" src="assets/sounds/doorbell-36846.mp3"></audio>
+                </div>
             </div>
 
-            <button class="btn-stop" id="btn-stop" disabled>DETENER SONIDO</button>
+            <button class="btn-stop" id="btn-stop" disabled>
+                DETENER SONIDO
+            </button>
 
             <div class="status hidden" id="status">
                 🔊 Reproduciendo en bucle: <span class="status-text" id="status-text"></span>
